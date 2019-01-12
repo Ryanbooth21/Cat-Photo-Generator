@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Cat Generator</title>
+  <meta name="description">
+  <meta name="Ryan Booth">
+
+  <style>
+    body{
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-image: url('15136.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    #root{
+      display: flex;
+      align-self: center;
+      justify-content: center;
+      width: 45vw;
+      height: 60vh;
+      background-position: center;
+      background-size: cover;
+      border-width:medium;
+      border-style: groove;
+      border-width: 7px;
+      border-color: white;
+    }
+    #catButton{
+      margin-top: 1em;
+      width: 6em;
+      height: 4em;
+      border-radius: 20em;
+      background-image: linear-gradient(30deg, pink, white);
+    }
+    #background{
+      margin-top: 4em;
+      font-size: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Cat Generator</h1>
+  <div id="root">
+  </div>
+  <button id="catButton" onClick="refreshPage()">More Cats Plz!!</button>
+  <a id="background" href="https://www.freepik.com/free-vector/yellow-comic-zoom-lines-background_2930929.htm">Background Designed by Starline</a>
+</body>
+</html>
+
+<script type="text/javascript">
+function refreshPage(){
+    window.location.reload();
+}
+//fetch will go and grab the api we want to work with
+  fetch('https://api.thecatapi.com/v1/images/search')
+//We access the data by calling the then method on the promise. The argument of then is the result of the resolved promise
+  .then(result=>{
+    console.log(result)
+    return result.json()
+  })
+  .then(data=>{
+    var catPhoto = data[0].url
+    document.getElementById('root').style.backgroundImage = (`url('${catPhoto}')`)
+    console.log(catPhoto)
+  })
+  .catch(error=>{console.log(error)})
+</script>
